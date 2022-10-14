@@ -1,6 +1,8 @@
 import cv2
 import numpy as np
 import math
+from matplotlib import pyplot as plt
+
 
 def BuscarMaxMin(i0,j0,imagen,imagen2,imagen3):
     k = 0
@@ -62,134 +64,11 @@ def Conec4(i0,j0,imagen):
             Gy = auxiliar[1] - auxiliar[7]
     return Gx, Gy
 
-#Funciones con switch / case
-"""def BuscarMax(j,i,imagen,imagen2,imagen3):
-    auxiliar = np.zeros(9)
-    auxiliar2 = np.zeros(9)
-    auxiliar3 = np.zeros(9)
-    x=0
-    y=0
-    for k in range(0,10,1):
-        if k == 0:
-            x=i-1;
-            y=j-1;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]
-        if k == 1:
-            x=i-1;
-            y=j;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]
-        if k == 2:
-          x=i-1;
-          y=j+1;
-          if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-          else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]  
-        if k == 3:
-            x=i;
-            y=j-1;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]   
-        if k == 4: #Posición del Pixel central de la ventana
-            x=i;
-            y=j;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0 #Central de la ventana de evaluacion
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]
-        if k == 5:
-            x=i;
-            y=j+1;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]
-        if k == 6:
-            x=i+1;
-            y=j-1;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]
-        if k == 7:
-            x=i+1;
-            y=j;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x] 
-        if k == 8:
-            x=i+1;
-            y=j+1;
-            if x < 0 | y < 0 | y>=imagen.shape[0] | x>= imagen.shape[1]:
-                auxiliar[k]=0
-                auxiliar2[k]=0
-                auxiliar3[k]=0
-            else:
-                auxiliar[k]=imagen[y][x]
-                auxiliar2[k]=imagen2[y][x]
-                auxiliar3[k]=imagen3[y][x]
-        if k == 9:
-            MaxAux = auxiliar.max()
-            MaxAux2 = auxiliar2.max()
-            MaxAux3 = auxiliar3.max()
-            MinAux = auxiliar.min()
-            MinAux2 = auxiliar2.min()
-            MinAux3 = auxiliar3.min()
-            if auxiliar[4] >= MaxAux and auxiliar[4] >= MaxAux2 and auxiliar[4] >= MaxAux3:
-                valor = True
-            elif auxiliar[4] <= MinAux and auxiliar[4] <= MinAux2 and auxiliar[4] <= MinAux3:
-                valor = False
-            else:
-                valor = None
-    return valor,auxiliar[4]"""
-
-img =cv2.imread(r"D:\Documentos\Universidad\Decimo Semestre\Vision por computadora\SIFT\SIFT\torre.jpg") #Cambiar ruta de la imagen
+img =cv2.imread(r"C:\Users\Santiago - PC\Documents\GitHub\SIFT\torre.jpg") #Cambiar ruta de la imagen
 gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY) #Pasar imagen a escala de grises
 Escala0 = []
 Escala1 = []
 Escala2 = []
-Escala3 = []
 gray_gauss = np.float32(cv2.GaussianBlur(gray,(3,3),0)) #Filtro Gaussiano primera imagen
 Escala0.append(gray_gauss) 
 Escala0[0] = np.float32(Escala0[0]) #De aqui en adelante todos los gauseannos se almacenan en Float32 =)
@@ -289,16 +168,6 @@ for y in range(0,alto-1):
         elif Bandera2 == False:
             Pmenores2[y][x] = Pixel2
 
-"""cv2.imshow("Pmayores", Pmayores)
-cv2.imshow("Pmenores", Pmenores)
-cv2.imshow("Pmayores1", Pmayores1)
-cv2.imshow("Pmenores1", Pmenores1)
-cv2.imshow("Pmayores2", Pmayores2)
-cv2.imshow("Pmenores2", Pmenores2)
-cv2.imshow("Pmayores3", Pmayores3)
-cv2.imshow("Pmenores3", Pmenores3)
-cv2.waitKey(0)"""
-
 P = Pmayores + Pmenores
 P1 = Pmayores1 + Pmenores1
 P2 = Pmayores2 + Pmenores2
@@ -329,6 +198,15 @@ for y in range(0,h-1):
            PF[y][x] = 0
 
 file = open("Matriz.txt", "w")
+keypoints = img.copy()
+for y in range(0,h-1):
+    for x in range(0,w-1):
+        if PF[y][x] != 0:
+           keypoints[y,x] = [0,255,0]
+
+cv2.imshow("Deteccion de KeyPoints", keypoints)
+cv2.waitKey(0)
+
 for y in range(0,alto-1):
     for x in range(0,ancho-1):
         if PF[y][x] != 0:
@@ -336,27 +214,210 @@ for y in range(0,alto-1):
 
 magnitud = []
 orientacion = []
+contBatch=0
+Batch1OR=[]
+Batch1MAG=[]
 
-for y in range(0,h-1):
+Batch2OR=[]
+Batch2MAG=[]
+
+Batch3OR=[]
+Batch3MAG=[]
+
+Batch4OR=[]
+Batch4MAG=[]
+
+Batch5OR=[]
+Batch5MAG=[]
+
+Batch6OR=[]
+Batch6MAG=[]
+
+Batch7OR=[]
+Batch7MAG=[]
+
+Batch8OR=[]
+Batch8MAG=[]
+
+"""for y in range(0,h-1):
     for x in range(0,w-1):
         Gx, Gy = Conec4(y,x,PF)
         magnitud.append(np.square((Gx**2) + (Gy**2)))
         if Gx == 0:
             orientacion.append(0)
         else:
-            orientacion.append(math.atan(Gy/Gx))
+            orientacion.append(math.atan(Gy/Gx))"""
+
+#Primera grupo de celdas 9x1
+
+vectores = img.copy()
+batchX=0
+batchY=0
+cont=0
+batchX=int((w-1)/8)
+batchY=int((w-1)/8)
+
+for y in range(0,h-1):
+    batchY=0
+    for x in range(0,w-1):
+        #print(batchX)
+        Gx, Gy = Conec4(y,x,PF)
+        """#Recorrer el primer Batch de pixeles
+        if((x<=int((w-1)/8)) and (y<=int((h-1)/8))):
+            Batch1MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch1OR.append(0)
+            else:
+                Batch1OR.append(math.atan(Gy/Gx))    
+        #Púnto de origen de los vectores"""
+
+        if((x<=35)or (y<=65)):
+            Batch1MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch1OR.append(0)
+            else:
+                Batch1OR.append(math.atan(Gy/Gx))
+            
+        if(((x>35)or (y>65))and((x<=70)or (y<=130))):
+            Batch2MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch2OR.append(0)
+            else:
+                Batch2OR.append(math.atan(Gy/Gx))
+        if(((x>70)or (y>130))and((x<=105)or (y<=195))):
+            Batch3MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch3OR.append(0)
+            else:
+                Batch3OR.append(math.atan(Gy/Gx))
+        if(((x>105)or (y>195))and((x<=140)or (y<=260))):
+            Batch4MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch4OR.append(0)
+            else:
+                Batch4OR.append(math.atan(Gy/Gx))
+        if(((x>140)or (y>260))and((x<=175)or (y<=325))):
+            Batch5MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch5OR.append(0)
+            else:
+                Batch5OR.append(math.atan(Gy/Gx))
+        if(((x>175)or (y>325))and((x<=210)or (y<=390))):
+            Batch6MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch6OR.append(0)
+            else:
+                Batch6OR.append(math.atan(Gy/Gx))
+        if(((x>210)or (y>390))and((x<=240)or (y<=455))):
+            Batch7MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch7OR.append(0)
+            else:
+                Batch1OR.append(math.atan(Gy/Gx))
+        if(((x>240)or (y>455))and((x<=w-1)or (y<=h-1))):
+            Batch8MAG.append(np.square((Gx**2) + (Gy**2)))
+            if Gx == 0:                        
+                Batch8OR.append(0)
+            else:
+                Batch8OR.append(math.atan(Gy/Gx))
+   
+
+
+
+
+plt.hist(Batch1MAG,bins=9)
+plt.hist(Batch1OR,bins=9)
+
+
+plt.hist(Batch2MAG,bins=9)
+plt.hist(Batch2OR,bins=9)
+
+
+plt.hist(Batch3MAG,bins=9)
+plt.hist(Batch3OR,bins=9)
+
+
+plt.hist(Batch4MAG,bins=9)
+plt.hist(Batch1OR,bins=9)
+
+
+plt.hist(Batch4MAG,bins=9)
+plt.hist(Batch1OR,bins=9)
+
+
+plt.hist(Batch5MAG,bins=9)
+plt.hist(Batch5OR,bins=9)
+
+plt.hist(Batch6MAG,bins=9)
+plt.hist(Batch6OR,bins=9)
+
+
+plt.hist(Batch7MAG,bins=9)
+plt.hist(Batch7OR,bins=9)
+
+
+plt.hist(Batch8MAG,bins=9)
+plt.hist(Batch8OR,bins=9)
+plt.xlim(0,1.5)
+plt.show()
+
+
+
+""" ax=plt.subplot(8,8)
+    #Orientacion
+    ax.plot(iOr,jOr)
+    ax.set_xlabel('Orientación')
+    ax.set_ylabel('Frecuencia')
+    ax.set_title('Agunlo vs frecuencia')"""
+
+
+    
+
+""" #Valor de maxima frecuencia de magnitud y dirección
+    valmaxOr=iOr[np.where(jOr == jOr.max())]
+    valmaxMag=iMag[np.where(jMag == jMag.max())]
+    #Coordenada en x y y en la imágen
+    Py=int(valmaxMag*(math.sin(valmaxOr)))
+    Px=int(valmaxMag*(math.cos(valmaxOr)))
+    #Ajustes de la linea
+    color=(0,255,0)
+    thickness = 9
+
+    linea= cv2.line(vectores,(VecX,VecY),(Px,Py),color,thickness)"""
+
+
+
+
+
+
+
+
+    #la cola del vector        
+    #Se haya el valor de mayor frecuencia para la magnitud y la orientacion
+    #valmaxOrientacion=iOr[np.where(jOr == jOr.max())]
+ 
+        #Al final del ciclo se le suma una variable para que las consicionales se corran un puesto 
         #print(Gx)
         #print(Gy)
         #print(magnitud)
         #print(orientacion)
 
-print(magnitud)
-cv2.imshow(":c", PF)
-cv2.waitKey(0) 
+#iMag,plt.show()
+
+#Prueba
+"""histogram=[1,1,1,2,2,3,3,3,3,3,3,3,3,3,3,3,3,4]
+#len(y) = len(x) - 1
+
+y,x,_=plt.hist(histogram, bins=20)
+valmax=x[np.where(y == y.max())]
+print(x)
+print(y)
+print(valmax)
+plt.show()"""
+#print(str(valmax)+"El valor mayor es"+str(x[int(valmax)]))
 
 
 #Seleccion Keypoint - Hessian
-
 """Px = []
 Py = []
 Pxy = []
