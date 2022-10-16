@@ -1,3 +1,11 @@
+"""DISEÑADO POR:
+    Andrés Santiago Rodriguez Prada
+    Maria Alejandra Pedraza Cardenas
+    Valentina Cortes Castellar
+    
+UMNG 2022
+VISION POR COMPUTADORA"""
+
 import cv2
 import numpy as np
 import math
